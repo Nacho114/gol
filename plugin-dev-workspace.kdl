@@ -8,10 +8,10 @@ layout {
             pane edit="Cargo.toml"
             pane stacked=true {
                 pane size="10%" command="bash" name="COMPILE AND RELOAD PLUGIN" {
-                    args "-c" "cargo build && zellij action start-or-reload-plugin file:target/wasm32-wasi/debug/game-of-life.wasm"
+                    args "-c" "cargo build && zellij action start-or-reload-plugin file:target/wasm32-wasi/debug/gol.wasm"
                 }
                 pane expanded=true {
-                    plugin location="file:target/wasm32-wasi/debug/game-of-life.wasm"
+                    plugin location="file:target/wasm32-wasi/debug/gol.wasm"
                 }
             }
         }

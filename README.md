@@ -9,7 +9,7 @@ A [Zellij](https://zellij.dev) plugin for enjoying the Conway's [game of life](h
 
 - `s` start
 - `r` reset
-- `Up` and `Down` or `j` and `k` to change the density of random initial population
+- `Up` and `Down` or `j` and `k` to change the density of the random initial population
 - `Left` and `Right` or `h` and `l` to change the time speed
 
 ## Why?
@@ -66,5 +66,5 @@ To run tests:
 cargo test --target aarch64-apple-darwin -- --nocapture
 ```
 
-> Replace the target with your cpu own architecture.
+> Replace the target the appropriate cpu architecture.
 

@@ -102,10 +102,7 @@ impl ZellijPlugin for State {
             ORANGE,
             "s: Toggle start/stop | r: Reset | ← slower | → faster",
         );
-        let init_instructions = color_bold(
-            ORANGE,
-            "← slower | → faster | ↑ Higher density | ↓ Lower density |",
-        );
+        let init_instructions = color_bold(ORANGE, "↑ Higher density | ↓ Lower density |");
         let init_probability = color_bold(RED, &format!("p={:.1}", self.init_probability));
 
         println!(
