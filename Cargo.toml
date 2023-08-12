@@ -1,5 +1,5 @@
 [package]
-name = "game-of-life"
+name = "gol"
 version = "0.1.0"
 authors = ["Ignacio Aleman <TBD>"]
 edition = "2018"

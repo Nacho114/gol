@@ -731,16 +731,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "game-of-life"
-version = "0.1.0"
-dependencies = [
- "ansi_term",
- "chrono",
- "rand",
- "zellij-tile",
-]
-
-[[package]]
 name = "generic-array"
 version = "0.14.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -777,6 +767,16 @@ dependencies = [
  "futures-core",
  "js-sys",
  "wasm-bindgen",
+]
+
+[[package]]
+name = "gol"
+version = "0.1.0"
+dependencies = [
+ "ansi_term",
+ "chrono",
+ "rand",
+ "zellij-tile",
 ]
 
 [[package]]
