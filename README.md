@@ -1,34 +1,70 @@
-## About
 
-This is an example [Zellij][zellij] plugin in Rust. It can be used as a template to start developing your own plugins.
+# gol
 
-More about Zellij plugins: [Zellij Documentation][docs]
+A [Zellij](https://zellij.dev) plugin for enjoying the Conway's [game of life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
-[zellij]: https://github.com/zellij-org/zellij
-[docs]: https://zellij.dev/documentation/plugins.html
+![usage](https://github.com/Nacho114/gol/raw/main/img/usage.gif)
 
-## Development
+## Usage
 
-*Note*: you will need to have `wasm32-wasi` added to rust as a target to build the plugin. This can be done with `rustup target add wasm32-wasi`.
+- `s` start
+- `r` reset
+- `Up` and `Down` or `j` and `k` to change the density of random initial population
+- `Left` and `Right` or `h` and `l` to change the time speed
 
-## Inside Zellij
-![img-2023-06-14-143355](https://github.com/zellij-org/rust-plugin-example/assets/795598/d9e563dc-5d71-4e10-af5b-190365bdca3b)
+## Why?
 
-You can load the `./plugin-dev-workspace.kdl` file as a Zellij layout to get a terminal development environment:
+Why not? 
 
-Either when starting Zellij:
+More seriously, it is actually quite fun to play around with the game of life to get a feel for the idea
+of [emergence](https://en.wikipedia.org/wiki/Emergence), as you play with different speeds and densities
+you will notice that certain configurations seem "noisy" while simply changing the speed will bring a 
+certain beautiful order out of the noise. 
+
+## Installation
+
+You'll need [rust](https://rustup.rs/) installed.
+
+- `git clone git@github.com:Nacho114/gol.git`
+- `cd gol`
+- `cargo build --release`
+- `mkdir -p ~/.config/zellij/plugins/`
+- `mv target/wasm32-wasi/release/gol.wasm ~/.config/zellij/plugins/`
+
+## Keybinding
+
+Add the following to your [zellij config](https://zellij.dev/documentation/configuration.html)
+somewhere inside the [keybinds](https://zellij.dev/documentation/keybindings.html) section:
+
+```kdl
+shared_except "locked" {
+    bind "Ctrl y" {
+        LaunchOrFocusPlugin "file:~/.config/zellij/plugins/gol.wasm" {
+            floating true
+        }
+    }
+}
 ```
-zellij --layout ./plugin-dev-workspace.kdl
+
+> You likely already have a `shared_except "locked"` section in your configs. Feel free to add `bind` there.## Contributing
+
+If you find any issues or want to suggest ideas please [open an issue](https://github.com/Nacho114/gol/issues/new).
+
+### Development
+
+Make sure you have [rust](https://rustup.rs/) installed then run:
+
+```sh
+zellij action new-tab --layout ./dev.kdl
 ```
-*Note that in this case there's a small bug where the plugin is opened twice, it can be remedied by closing the oldest instance or loading with the new-tab action as secified below - this will be addressed in the near future*
 
-Or from a running Zellij session:
-```bash
-zellij action new-tab --layout ./plugin-dev-workspace.kdl
+### Testing
+
+To run tests:
+
+```sh
+cargo test --target aarch64-apple-darwin -- --nocapture
 ```
 
-## Otherwise
+> Replace the target with your cpu own architecture.
 
-1. Build the project: `cargo build`
-2. Load it inside a running Zellij session: `zellij action start-or-reload-plugin file:target/wasm32-wasi/debug/rust-plugin-example.wasm`
-3. Repeat on changes (perhaps with a `watchexec` or similar command to run on fs changes).
