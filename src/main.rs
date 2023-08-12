@@ -4,7 +4,7 @@ use zellij_tile::prelude::*;
 
 mod game_engine;
 
-#[derive(Default)]
+#[derive(Default, PartialEq)]
 struct Dimension(usize, usize);
 
 #[derive(Default)]
@@ -80,7 +80,7 @@ impl ZellijPlugin for State {
             }
 
             Event::Timer(_) => {
-                if self.run_game {
+                if self.run_game && self.dimension != Dimension(0, 0) {
                     set_timeout(self.time_duration);
                     self.board = self.board.update();
                     should_render = true;
@@ -92,7 +92,7 @@ impl ZellijPlugin for State {
     }
 
     fn render(&mut self, rows: usize, cols: usize) {
-        if self.dimension.0 != rows || self.dimension.1 != cols {
+        if self.dimension != Dimension(rows, cols) {
             self.dimension = Dimension(rows, cols);
             self.board = Board::rand_init(rows, cols, self.init_probability);
         }
@@ -104,12 +104,12 @@ impl ZellijPlugin for State {
         );
         let init_instructions = color_bold(
             ORANGE,
-            "← slower | → faster | ↑ Higher density | ↓ Lower density",
+            "← slower | → faster | ↑ Higher density | ↓ Lower density |",
         );
         let init_probability = color_bold(RED, &format!("p={:.1}", self.init_probability));
 
         println!(
-            "{}\n{}\n{} | {}",
+            "{}\n{}\n{} {}",
             board, instructions, init_instructions, init_probability
         );
     }
